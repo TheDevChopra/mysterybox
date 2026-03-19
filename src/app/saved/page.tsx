@@ -5,8 +5,9 @@ import Link from 'next/link';
 import { ArrowLeft, Trash2, ExternalLink } from 'lucide-react';
 import { Discovery } from '@/components/DiscoveryCard';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 export default function SavedPage() {
   const [saved, setSaved] = useState<Discovery[]>([]);
@@ -43,9 +44,15 @@ export default function SavedPage() {
             <span className="text-sm font-bold uppercase tracking-widest text-slate-400">
               No discoveries yet
             </span>
-            <Button asChild className="bg-black text-white hover:bg-slate-800 rounded-none h-12 uppercase font-bold tracking-widest text-xs px-8">
-              <Link href="/">Open the Box</Link>
-            </Button>
+            <Link 
+              href="/" 
+              className={cn(
+                buttonVariants({ variant: "default" }),
+                "bg-black text-white hover:bg-slate-800 rounded-none h-12 uppercase font-bold tracking-widest text-xs px-8 flex items-center justify-center"
+              )}
+            >
+              Open the Box
+            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -70,14 +77,17 @@ export default function SavedPage() {
                   </div>
                   
                   <div className="flex gap-2 pt-4 border-t border-slate-100">
-                    <Button 
-                      className="flex-[2] bg-black text-white hover:bg-slate-800 rounded-none h-10 uppercase font-bold tracking-widest text-[10px]"
-                      asChild
+                    <a 
+                      href={discovery.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className={cn(
+                        buttonVariants({ variant: "default" }),
+                        "flex-[2] bg-black text-white hover:bg-slate-800 rounded-none h-10 uppercase font-bold tracking-widest text-[10px] flex items-center justify-center gap-2"
+                      )}
                     >
-                      <a href={discovery.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                        Visit <ExternalLink className="w-3 h-3" />
-                      </a>
-                    </Button>
+                      Visit <ExternalLink className="w-3 h-3" />
+                    </a>
                     <Button
                       variant="outline"
                       className="flex-1 rounded-none border-[#C7C7C7] hover:bg-red-50 hover:text-red-500 hover:border-red-200 text-slate-600 h-10"
